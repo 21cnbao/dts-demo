@@ -6,7 +6,6 @@
  * Licensed under GPLv2.
  */
 
-/include/ "skeleton.dtsi"
 / {
 	compatible = "linuxer,demosoc";
 	#address-cells = <1>;
