@@ -1,0 +1,106 @@
+/*
+ * DTS file for demo platform for Aug14,2017 CSDN/Linuxer course
+ *
+ * Copyright (c) 2017 Baohua Song <21cnbao@gmail.com>
+ *
+ * Licensed under GPLv2.
+ */
+
+/include/ "skeleton.dtsi"
+/ {
+	compatible = "linuxer,demosoc";
+	#address-cells = <1>;
+	#size-cells = <1>;
+	interrupt-parent = <&intc>;
+
+	aliases {
+		serial0 = &uart0;
+	};
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu@0 {
+			compatible = "arm,cortex-a9";
+			device_type = "cpu";
+			reg = <0x0>;
+		};
+		cpu@1 {
+			compatible = "arm,cortex-a9";
+			device_type = "cpu";
+			reg = <0x1>;
+		};
+	};
+
+	axi@40000000 {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges = <0x40000000 0x40000000 0x80000000>;
+
+		l2-cache-controller@80040000 {
+			compatible = "arm,pl310-cache";
+			reg = <0x80040000 0x1000>;
+			interrupts = <59>;
+			arm,tag-latency = <1 1 1>;
+			arm,data-latency = <1 1 1>;
+			arm,filter-ranges = <0 0x40000000>;
+		};
+
+		intc: interrupt-controller@80020000 {
+			#interrupt-cells = <1>;
+			interrupt-controller;
+			compatible = "linuxer,demosoc-intc";
+			reg = <0x80020000 0x1000>;
+		};
+
+		peri-iobg@b0000000 {
+			compatible = "simple-bus";
+			#address-cells = <1>;
+			#size-cells = <1>;
+			ranges = <0x0 0xb0000000 0x180000>;
+
+			timer@20000 {
+				compatible = "linuxer,demosoc-tick";
+				reg = <0x20000 0x1000>;
+				interrupts = <0>;
+				clocks = <&clks 11>;
+			};
+
+			clks: clock-controller@30000 {
+				compatible = "linuxer,demosoc-clkc";
+				reg = <0x30000 0x1000>;
+				#clock-cells = <1>;
+			};
+
+			uart0: uart@50000 {
+				cell-index = <0>;
+				compatible = "linuxer,demosoc-uart";
+				reg = <0x50000 0x1000>;
+				interrupts = <17>;
+				status = "disabled";
+			};
+
+			spi0: spi@d0000 {
+				cell-index = <0>;
+				compatible = "linuxer,demosoc-spi";
+				reg = <0xd0000 0x10000>;
+				interrupts = <15>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "enabled";
+			};
+
+			i2c0: i2c@e0000 {
+				cell-index = <0>;
+				compatible = "linuxer,demosoc-i2c";
+				reg = <0xe0000 0x10000>;
+				interrupts = <24>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "enabled";
+			};
+		};
+	};
+};
