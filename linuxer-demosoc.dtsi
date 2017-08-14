@@ -60,6 +60,13 @@
 			#size-cells = <1>;
 			ranges = <0x0 0xb0000000 0x180000>;
 
+			ethernet@10000 {
+				compatible = "davicom,dm9000";
+				reg = <0x10000 0x2 0x10004 0x2>;
+				interrupts = <7>;
+				davicom,no-eeprom;
+			};
+
 			timer@20000 {
 				compatible = "linuxer,demosoc-tick";
 				reg = <0x20000 0x1000>;
@@ -71,6 +78,16 @@
 				compatible = "linuxer,demosoc-clkc";
 				reg = <0x30000 0x1000>;
 				#clock-cells = <1>;
+			};
+
+			gpio0: goio@40000 {
+				#gpio-cells = <2>;
+				#interrupt-cells = <2>;
+				compatible = "linuxer,demosoc-gpio";
+				reg = <0x40000 0x200>;
+				interrupts = <43>;
+				gpio-controller;
+				interrupt-controller;
 			};
 
 			uart0: uart@50000 {

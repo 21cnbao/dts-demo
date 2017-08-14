@@ -21,7 +21,15 @@
 				status = "disable";
 			};
 			i2c@e0000 {
-				status = "disable";
+				pixcir_ts@5c {
+					compatible = "pixcir,pixcir_tangoc";
+					reg = <0x5c>;
+					interrupt-parent = <&gpio0>;
+					interrupts = <17 0>;
+					attb-gpio = <&gpio0 22 0>;
+					touchscreen-size-x = <1024>;
+					touchscreen-size-y = <600>;
+				};
 			};
 		};
 	};
@@ -29,6 +37,5 @@
 };
 
 &uart0 {
-		status = "enable";
+	status = "enable";
 };
-
