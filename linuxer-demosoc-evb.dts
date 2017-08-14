@@ -18,7 +18,7 @@
 	axi@40000000 {
 		peri-iobg@b0000000 {
 			spi@d0000 {
-				status = "disable";
+				status = "disabled";
 			};
 			i2c@e0000 {
 				pixcir_ts@5c {
@@ -37,5 +37,5 @@
 };
 
 &uart0 {
-	status = "enable";
+	status = "okay";
 };

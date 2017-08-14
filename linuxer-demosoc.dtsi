@@ -105,7 +105,7 @@
 				interrupts = <15>;
 				#address-cells = <1>;
 				#size-cells = <0>;
-				status = "enabled";
+				status = "okay";
 			};
 
 			i2c0: i2c@e0000 {
@@ -115,7 +115,7 @@
 				interrupts = <24>;
 				#address-cells = <1>;
 				#size-cells = <0>;
-				status = "enabled";
+				status = "okay";
 			};
 		};
 	};
